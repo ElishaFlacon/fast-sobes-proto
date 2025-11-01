@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package search;
+option go_package = "internal/handlers/search/proto;proto";
+
+// === Messages ===
+message SearchRequest {
+  string text = 1;
+  int64 page = 2;
+}
+
+message ShortVacancy {
+  int64 id = 1;
+  string name = 2;
+  string work_experience = 3;
+  string company = 4;
+  string address = 5;
+}
+
+message SearchResponse {
+  int64 count = 1;
+  repeated ShortVacancy items = 2;
+}
+
+// === Service ===
+service Search { rpc SearchVacancies(SearchRequest) returns (SearchResponse); }

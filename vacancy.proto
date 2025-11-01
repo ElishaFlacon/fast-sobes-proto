@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package vacancy;
+option go_package = "internal/handlers/vacancy/proto;proto";
+
+// === Messages ===
+message GetRequest {
+  int64 id = 1;
+}
+
+message GetResponse {
+  VacancyInfo vacancy = 1;
+}
+
+message VacancyInfo {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  string work_experience = 4;
+  bool has_test = 5;
+  bool is_active = 6;
+  repeated string skills = 7;
+  string publication_date = 8;
+  Compensation compensation = 9;
+  Company company = 10;
+}
+
+message Compensation {
+  int64 value = 1;
+  string code = 2;
+}
+
+message Company {
+  int64 id = 1;
+  string name = 2;
+  string logo_url = 3;
+  string site_url = 4;
+  bool accredited = 5;
+  Address address = 6;
+}
+
+message Address {
+  string name = 1;
+  string marker = 2;
+}
+
+// === Service ===
+service Vacancy {
+  rpc GetVacancy (GetRequest) returns (GetResponse);
+}
